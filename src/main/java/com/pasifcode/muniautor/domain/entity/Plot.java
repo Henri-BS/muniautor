@@ -22,10 +22,13 @@ public class Plot {
     private String image;
 
     @OneToMany(mappedBy = "plot")
-    private Set<Timeline> timeline = new HashSet<>();
+    private Set<Timeline> timelines = new HashSet<>();
 
     @OneToMany(mappedBy = "plot")
     private Set<Section> sections = new HashSet<>();
+
+    @OneToMany(mappedBy = "plot")
+    private Set<Character> characters = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -81,11 +84,16 @@ public class Plot {
         this.image = image;
     }
 
-    public Set<Timeline> getTimeline() {
-        return timeline;
+
+    public Set<Timeline> getTimelines() {
+        return timelines;
     }
 
     public Set<Section> getSections() {
         return sections;
+    }
+
+    public Set<Character> getCharacters() {
+        return characters;
     }
 }

@@ -2,34 +2,29 @@ package com.pasifcode.muniautor.domain.entity;
 
 import jakarta.persistence.*;
 
+
+
 @Entity
-@Table(name = "tb_timeline")
-public class Timeline {
+@Table(name = "tb_specification")
+public class Specification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "timeline_id", nullable = false)
+    @Column(name = "specification_id", nullable = false)
     private Long id;
 
-    @Column(length = 80, nullable = false)
-    private String title;
+    private String type;
 
-    @Column(columnDefinition = "TEXT")
     private String description;
 
-    private String epoch;
-
-    private Integer yearNumber;
-
     @ManyToOne
-    @JoinColumn(name = "plot_id")
+    @JoinColumn(name = "character_id")
     private Plot plot;
 
     @ManyToOne
     @JoinColumn(name = "character_id")
     private Character character;
 
-
-    public Timeline() {
+    public Specification() {
     }
 
     public Long getId() {
@@ -40,12 +35,12 @@ public class Timeline {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getType() {
+        return type;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getDescription() {
@@ -54,22 +49,6 @@ public class Timeline {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getEpoch() {
-        return epoch;
-    }
-
-    public void setEpoch(String epoch) {
-        this.epoch = epoch;
-    }
-
-    public Integer getYearNumber() {
-        return yearNumber;
-    }
-
-    public void setYearNumber(Integer yearNumber) {
-        this.yearNumber = yearNumber;
     }
 
     public Plot getPlot() {
