@@ -2,6 +2,9 @@ package com.pasifcode.muniautor.domain.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "tb_section")
 public class Section {
@@ -24,6 +27,9 @@ public class Section {
     @ManyToOne
     @JoinColumn(name = "plot_id")
     private Plot plot;
+
+    @OneToMany(mappedBy = "section")
+    private Set<Specification> specifications = new HashSet<>();
 
     public Section() {
     }
@@ -74,5 +80,9 @@ public class Section {
 
     public void setPlot(Plot plot) {
         this.plot = plot;
+    }
+
+    public Set<Specification> getSpecifications() {
+        return specifications;
     }
 }

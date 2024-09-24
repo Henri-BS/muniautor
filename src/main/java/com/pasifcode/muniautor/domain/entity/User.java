@@ -30,9 +30,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Section> sections = new HashSet<>();
 
-    @OneToMany(mappedBy = "user")
-    private Set<Character> characters = new HashSet<>();
-
     public Long getId() {
         return id;
     }
@@ -87,9 +84,5 @@ public class User {
 
     public Set<Section> getSections() {
         return sections;
-    }
-
-    public Set<Character> getCharacters() {
-        return characters;
     }
 }

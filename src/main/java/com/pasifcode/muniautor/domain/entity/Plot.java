@@ -21,6 +21,10 @@ public class Plot {
 
     private String image;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @OneToMany(mappedBy = "plot")
     private Set<Timeline> timelines = new HashSet<>();
 
@@ -29,18 +33,6 @@ public class Plot {
 
     @OneToMany(mappedBy = "plot")
     private Set<Character> characters = new HashSet<>();
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public Plot() {
     }
@@ -84,6 +76,13 @@ public class Plot {
         this.image = image;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Set<Timeline> getTimelines() {
         return timelines;

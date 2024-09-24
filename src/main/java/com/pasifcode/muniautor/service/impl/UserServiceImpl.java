@@ -20,14 +20,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<UserDto> findAllUsers(Pageable pageable) {
+    public Page<UserDto> findAll(Pageable pageable) {
         Page<User> page = userRepository.findAll(pageable);
         return page.map(UserDto::new);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public UserDto findUserById(Long id) {
+    public UserDto findById(Long id) {
         User find = userRepository.findById(id).orElseThrow(NoSuchElementException::new);
         return new UserDto(find);
     }
@@ -36,13 +36,13 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserDto saveUser(UserDto dto) {
 
-        User user = new User();
-        user.setUsername(dto.getUsername());
-        user.setEmail(dto.getEmail());
-        user.setPassword(dto.getPassword());
-        user.setImage(dto.getImage());
-        user.setBio(dto.getBio());
+        User add = new User();
+        add.setUsername(dto.getUsername());
+        add.setEmail(dto.getEmail());
+        add.setPassword(dto.getPassword());
+        add.setImage(dto.getImage());
+        add.setBio(dto.getBio());
 
-        return new UserDto(userRepository.saveAndFlush(user));
+        return new UserDto(userRepository.saveAndFlush(add));
     }
 }

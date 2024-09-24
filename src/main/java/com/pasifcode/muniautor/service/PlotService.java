@@ -9,5 +9,5 @@ public interface PlotService {
 
     PlotDto findById(Long id);
 
-    PlotDto saveUser(PlotDto dto);
+    PlotDto savePlot(PlotDto dto);
 }

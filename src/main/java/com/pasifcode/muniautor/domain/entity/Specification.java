@@ -17,14 +17,22 @@ public class Specification {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "character_id")
-    private Plot plot;
+    @JoinColumn(name = "section_id")
+    private Section section;
 
     @ManyToOne
     @JoinColumn(name = "character_id")
     private Character character;
 
     public Specification() {
+    }
+
+    public Specification(Long id, String type, String description, Section section, Character character) {
+        this.id = id;
+        this.type = type;
+        this.description = description;
+        this.section = section;
+        this.character = character;
     }
 
     public Long getId() {
@@ -51,12 +59,12 @@ public class Specification {
         this.description = description;
     }
 
-    public Plot getPlot() {
-        return plot;
+    public Section getSection() {
+        return section;
     }
 
-    public void setPlot(Plot plot) {
-        this.plot = plot;
+    public void setSection(Section section) {
+        this.section = section;
     }
 
     public Character getCharacter() {
