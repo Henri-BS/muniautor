@@ -1,4 +1,4 @@
-package com.pasifcode.muniautor.controller;
+package com.pasifcode.muniautor.application.controller;
 
 import com.pasifcode.muniautor.domain.dto.SectionDto;
 import com.pasifcode.muniautor.service.SectionService;

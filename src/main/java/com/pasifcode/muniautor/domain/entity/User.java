@@ -1,5 +1,6 @@
 package com.pasifcode.muniautor.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -16,12 +17,15 @@ public class User {
     @Column(nullable = false, unique = true)
     private String username;
 
+    @Column(nullable = false, unique = true)
     private String email;
 
+    @JsonIgnore
     private String password;
 
     private String image;
 
+    @Column(columnDefinition = "TEXT")
     private String bio;
 
     @OneToMany(mappedBy = "user")

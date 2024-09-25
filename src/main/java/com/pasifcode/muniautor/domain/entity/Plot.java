@@ -16,7 +16,7 @@ public class Plot {
     @Column(length = 100, nullable = false)
     private String title;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(length = 5000, columnDefinition = "TEXT")
     private String synopsis;
 
     private String image;

@@ -13,8 +13,12 @@ public class Character {
     @Column(name = "character_id", nullable = false)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
+
+    @Column(columnDefinition = "TEXT")
     private String bio;
+
     private String image;
 
     @ManyToOne

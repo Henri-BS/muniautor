@@ -43,6 +43,10 @@ public class UserServiceImpl implements UserService {
         add.setImage(dto.getImage());
         add.setBio(dto.getBio());
 
+        if(userRepository.existsByEmail(add.getEmail())){
+            throw new IllegalArgumentException("This email already exists.");
+        }
+
         return new UserDto(userRepository.saveAndFlush(add));
     }
 }
