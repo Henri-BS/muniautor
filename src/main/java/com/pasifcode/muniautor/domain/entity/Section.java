@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -29,11 +30,9 @@ public class Section extends BaseEntity {
     public Section() {
     }
 
-    public Section(Long id, String title, String description, LocalDateTime createdDate, User user, Plot plot) {
+    public Section(Long id, String title, String description, LocalDateTime createdDate) {
         super(title, description, createdDate);
         this.id = id;
-        this.user = user;
-        this.plot = plot;
     }
 
     public Long getId() {
@@ -61,4 +60,16 @@ public class Section extends BaseEntity {
         this.plot = plot;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Section section = (Section) o;
+        return Objects.equals(id, section.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }

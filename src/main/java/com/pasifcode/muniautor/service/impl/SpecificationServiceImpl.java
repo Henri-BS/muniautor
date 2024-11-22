@@ -61,6 +61,7 @@ public class SpecificationServiceImpl implements SpecificationService {
     public SpecificationDto updateSpecification(SpecificationDto dto) {
         Specification edit = specificationRepository.findById(dto.getId()).orElseThrow(NoSuchElementException::new);
 
+        edit.setId(edit.getId());
         edit.setTitle(dto.getTitle());
         edit.setDescription(dto.getDescription());
 

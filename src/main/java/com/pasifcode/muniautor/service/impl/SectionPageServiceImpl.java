@@ -62,6 +62,7 @@ public class SectionPageServiceImpl implements SectionPageService {
     public SectionPageDto updateSectionPage(SectionPageDto dto) {
         SectionPage edit = sectionPageRepository.findById(dto.getId()).orElseThrow(NoSuchElementException::new);
 
+        edit.setId(edit.getId());
         edit.setBody(dto.getBody());
         edit.setPageNumber(dto.getPageNumber());
 

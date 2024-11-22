@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -27,6 +28,10 @@ public class Plot extends BaseEntity{
     @OneToMany(mappedBy = "plot")
     private Set<Character> characters = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(name = "tb_plot_catalog", joinColumns = @JoinColumn(name = "plot_id"), inverseJoinColumns = @JoinColumn(name = "catalog_id"))
+    private Set<Catalog> catalogs = new HashSet<>();
+
     public Plot() {
     }
 
@@ -49,5 +54,18 @@ public class Plot extends BaseEntity{
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Plot plot = (Plot) o;
+        return Objects.equals(id, plot.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

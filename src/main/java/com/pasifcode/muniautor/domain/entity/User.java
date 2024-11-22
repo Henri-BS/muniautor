@@ -41,6 +41,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<SectionPage> sectionPages = new HashSet<>();
 
+    @OneToMany(mappedBy = "user")
+    private Set<Catalog> catalogs = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -75,5 +78,9 @@ public class User {
 
     public LocalDateTime getCreatedDate() {
         return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
     }
 }

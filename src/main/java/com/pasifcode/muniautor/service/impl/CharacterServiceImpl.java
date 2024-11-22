@@ -62,6 +62,7 @@ public class CharacterServiceImpl implements CharacterService {
     public CharacterDto updateCharacter(CharacterDto dto) {
         Character edit = characterRepository.findById(dto.getId()).orElseThrow(NoSuchElementException::new);
 
+        edit.setId(edit.getId());
         edit.setName(dto.getName());
         edit.setBio(dto.getBio());
         edit.setImage(dto.getImage());
