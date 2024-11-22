@@ -1,9 +1,7 @@
 package com.pasifcode.muniautor.application.controller;
 
 import com.pasifcode.muniautor.domain.dto.TimelineDto;
-import com.pasifcode.muniautor.domain.entity.Character;
 import com.pasifcode.muniautor.domain.entity.Plot;
-import com.pasifcode.muniautor.domain.entity.Section;
 import com.pasifcode.muniautor.service.TimelineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,5 +33,11 @@ public class TimelineController {
     public ResponseEntity<TimelineDto> saveTimeline(@RequestBody TimelineDto dto) {
         TimelineDto save = timelineService.saveTimeline(dto);
         return new ResponseEntity<>(save, HttpStatus.CREATED);
+    }
+
+    @PutMapping
+    public ResponseEntity<TimelineDto> updateTimeline(@RequestBody TimelineDto dto) {
+        TimelineDto edit = timelineService.updateTimeline(dto);
+        return new ResponseEntity<>(edit, HttpStatus.OK);
     }
 }

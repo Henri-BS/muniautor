@@ -1,9 +1,11 @@
 package com.pasifcode.muniautor.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pasifcode.muniautor.domain.entity.Character;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 public class CharacterDto implements Serializable {
 
@@ -14,6 +16,8 @@ public class CharacterDto implements Serializable {
     private String name;
     private String bio;
     private String image;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDateTime createdDate;
     private Long plotId;
     private String plotTitle;
     private Long userId;
@@ -27,6 +31,7 @@ public class CharacterDto implements Serializable {
         name = entity.getName();
         bio = entity.getBio();
         image = entity.getImage();
+        createdDate = entity.getCreatedDate();
         plotId = entity.getPlot().getId();
         plotTitle = entity.getPlot().getTitle();
         userId = entity.getUser().getId();
@@ -47,6 +52,10 @@ public class CharacterDto implements Serializable {
 
     public String getImage() {
         return image;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
     }
 
     public Long getPlotId() {

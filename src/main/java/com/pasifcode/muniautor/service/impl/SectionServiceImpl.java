@@ -56,4 +56,16 @@ public class SectionServiceImpl implements SectionService {
 
         return new SectionDto(sectionRepository.saveAndFlush(add));
     }
+
+    @Override
+    @Transactional
+    public SectionDto updateSection(SectionDto dto) {
+        Section edit = sectionRepository.findById(dto.getId()).orElseThrow(NoSuchElementException::new);
+
+        edit.setId(edit.getId());
+        edit.setTitle(dto.getTitle());
+        edit.setDescription(dto.getDescription());
+
+        return new SectionDto(sectionRepository.save(edit));
+    }
 }

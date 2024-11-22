@@ -11,4 +11,6 @@ public interface CharacterService {
     CharacterDto findById(Long id);
 
     CharacterDto saveCharacter(CharacterDto dto);
+
+    CharacterDto updateCharacter(CharacterDto dto);
 }

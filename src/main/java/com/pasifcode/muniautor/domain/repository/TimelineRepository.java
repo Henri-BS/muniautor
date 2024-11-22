@@ -1,6 +1,5 @@
 package com.pasifcode.muniautor.domain.repository;
 
-import com.pasifcode.muniautor.domain.entity.Character;
 import com.pasifcode.muniautor.domain.entity.Plot;
 import com.pasifcode.muniautor.domain.entity.Timeline;
 import org.springframework.data.jpa.repository.JpaRepository;

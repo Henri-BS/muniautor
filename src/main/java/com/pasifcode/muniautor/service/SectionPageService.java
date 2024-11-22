@@ -10,4 +10,6 @@ public interface SectionPageService {
     SectionPageDto findById(Long id);
 
     SectionPageDto saveSectionPage(SectionPageDto dto);
+
+    SectionPageDto updateSectionPage(SectionPageDto dto);
 }

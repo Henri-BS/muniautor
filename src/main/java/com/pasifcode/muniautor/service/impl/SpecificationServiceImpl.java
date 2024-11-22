@@ -4,7 +4,6 @@ import com.pasifcode.muniautor.domain.dto.SpecificationDto;
 import com.pasifcode.muniautor.domain.entity.*;
 import com.pasifcode.muniautor.domain.entity.Character;
 import com.pasifcode.muniautor.domain.repository.CharacterRepository;
-import com.pasifcode.muniautor.domain.repository.SectionRepository;
 import com.pasifcode.muniautor.domain.repository.SpecificationRepository;
 import com.pasifcode.muniautor.domain.repository.UserRepository;
 import com.pasifcode.muniautor.service.SpecificationService;
@@ -55,5 +54,16 @@ public class SpecificationServiceImpl implements SpecificationService {
         add.setUser(user);
 
         return new SpecificationDto(specificationRepository.saveAndFlush(add));
+    }
+
+    @Override
+    @Transactional
+    public SpecificationDto updateSpecification(SpecificationDto dto) {
+        Specification edit = specificationRepository.findById(dto.getId()).orElseThrow(NoSuchElementException::new);
+
+        edit.setTitle(dto.getTitle());
+        edit.setDescription(dto.getDescription());
+
+        return new SpecificationDto(specificationRepository.save(edit));
     }
 }

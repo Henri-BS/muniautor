@@ -34,4 +34,10 @@ public class CharacterController {
         CharacterDto save = characterService.saveCharacter(dto);
         return new ResponseEntity<>(save, HttpStatus.CREATED);
     }
+
+    @PutMapping
+    public ResponseEntity<CharacterDto> updateCharacter(@RequestBody CharacterDto dto) {
+        CharacterDto edit = characterService.updateCharacter(dto);
+        return new ResponseEntity<>(edit, HttpStatus.OK);
+    }
 }

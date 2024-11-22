@@ -1,6 +1,9 @@
 package com.pasifcode.muniautor.domain.entity;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tb_section_page")
@@ -15,6 +18,9 @@ public class SectionPage {
 
     private Long pageNumber;
 
+    @CreatedDate
+    private LocalDateTime createdDate = LocalDateTime.now();
+
     @ManyToOne
     @JoinColumn(name = "section_id")
     private Section section;
@@ -26,10 +32,11 @@ public class SectionPage {
     public SectionPage() {
     }
 
-    public SectionPage(Long id, String body, Long pageNumber) {
+    public SectionPage(Long id, String body, Long pageNumber, LocalDateTime createdDate) {
         this.id = id;
         this.body = body;
         this.pageNumber = pageNumber;
+        this.createdDate = createdDate;
     }
 
     public Long getId() {
@@ -54,6 +61,14 @@ public class SectionPage {
 
     public void setPageNumber(Long pageNumber) {
         this.pageNumber = pageNumber;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
     }
 
     public Section getSection() {

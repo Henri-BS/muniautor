@@ -33,4 +33,10 @@ public class PlotController {
         PlotDto save = plotService.savePlot(dto);
         return new ResponseEntity<>(save, HttpStatus.CREATED);
     }
+
+    @PutMapping
+    public ResponseEntity<PlotDto> updatePlot(@RequestBody PlotDto dto) {
+        PlotDto edit = plotService.updatePlot(dto);
+        return new ResponseEntity<>(edit, HttpStatus.OK);
+    }
 }

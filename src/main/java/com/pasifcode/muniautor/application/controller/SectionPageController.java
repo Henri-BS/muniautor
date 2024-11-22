@@ -33,4 +33,10 @@ public class SectionPageController {
         SectionPageDto save = sectionService.saveSectionPage(dto);
         return new ResponseEntity<>(save, HttpStatus.CREATED);
     }
+
+    @PutMapping
+    public ResponseEntity<SectionPageDto> updateSectionPage(@RequestBody SectionPageDto dto) {
+        SectionPageDto edit = sectionService.updateSectionPage(dto);
+        return new ResponseEntity<>(edit, HttpStatus.OK);
+    }
 }

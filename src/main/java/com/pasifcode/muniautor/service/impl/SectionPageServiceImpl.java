@@ -56,4 +56,15 @@ public class SectionPageServiceImpl implements SectionPageService {
 
         return new SectionPageDto(sectionPageRepository.saveAndFlush(add));
     }
+
+    @Override
+    @Transactional
+    public SectionPageDto updateSectionPage(SectionPageDto dto) {
+        SectionPage edit = sectionPageRepository.findById(dto.getId()).orElseThrow(NoSuchElementException::new);
+
+        edit.setBody(dto.getBody());
+        edit.setPageNumber(dto.getPageNumber());
+
+        return new SectionPageDto(sectionPageRepository.save(edit));
+    }
 }

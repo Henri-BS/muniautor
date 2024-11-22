@@ -12,4 +12,6 @@ public interface SpecificationService {
     SpecificationDto findById(Long id);
 
     SpecificationDto saveSpecification(SpecificationDto dto);
+
+    SpecificationDto updateSpecification(SpecificationDto dto);
 }

@@ -33,4 +33,10 @@ public class SectionController {
         SectionDto save = sectionService.saveSection(dto);
         return new ResponseEntity<>(save, HttpStatus.CREATED);
     }
+
+    @PutMapping
+    public ResponseEntity<SectionDto> updateSection(@RequestBody SectionDto dto) {
+        SectionDto edit = sectionService.updateSection(dto);
+        return new ResponseEntity<>(edit, HttpStatus.OK);
+    }
 }

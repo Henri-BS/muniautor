@@ -1,8 +1,9 @@
 package com.pasifcode.muniautor.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,8 +21,10 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @JsonIgnore
     private String password;
+
+    @CreatedDate
+    private LocalDateTime createdDate = LocalDateTime.now();
 
     @OneToMany(mappedBy = "user")
     private Set<Plot> plots = new HashSet<>();
@@ -70,11 +73,7 @@ public class User {
         this.password = password;
     }
 
-    public Set<Plot> getPlots() {
-        return plots;
-    }
-
-    public Set<Section> getSections() {
-        return sections;
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
     }
 }

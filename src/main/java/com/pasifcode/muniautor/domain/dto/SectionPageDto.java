@@ -1,9 +1,11 @@
 package com.pasifcode.muniautor.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pasifcode.muniautor.domain.entity.SectionPage;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 public class SectionPageDto implements Serializable {
 
@@ -13,6 +15,8 @@ public class SectionPageDto implements Serializable {
     private Long id;
     private String body;
     private Long pageNumber;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDateTime createdDate;
     private Long sectionId;
     private Long userId;
     private String username;
@@ -24,6 +28,7 @@ public class SectionPageDto implements Serializable {
         id = entity.getId();
         body = entity.getBody();
         pageNumber = entity.getPageNumber();
+        createdDate = entity.getCreatedDate();
         sectionId = entity.getSection().getId();
         userId = entity.getUser().getId();
         username = entity.getUser().getUsername();
@@ -41,39 +46,15 @@ public class SectionPageDto implements Serializable {
         return body;
     }
 
-    public void setBody(String body) {
-        this.body = body;
-    }
-
     public Long getPageNumber() {
         return pageNumber;
-    }
-
-    public void setPageNumber(Long pageNumber) {
-        this.pageNumber = pageNumber;
     }
 
     public Long getSectionId() {
         return sectionId;
     }
 
-    public void setSectionId(Long sectionId) {
-        this.sectionId = sectionId;
-    }
-
     public Long getUserId() {
         return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 }

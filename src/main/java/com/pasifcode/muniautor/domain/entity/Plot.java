@@ -14,8 +14,6 @@ public class Plot extends BaseEntity{
     @Column(name = "plot_id", nullable = false)
     private Long id;
 
-
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -51,17 +49,5 @@ public class Plot extends BaseEntity{
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Set<Timeline> getTimelines() {
-        return timelines;
-    }
-
-    public Set<Section> getSections() {
-        return sections;
-    }
-
-    public Set<Character> getCharacters() {
-        return characters;
     }
 }

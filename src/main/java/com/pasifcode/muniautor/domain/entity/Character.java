@@ -1,7 +1,9 @@
 package com.pasifcode.muniautor.domain.entity;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,21 +23,29 @@ public class Character {
 
     private String image;
 
+    @CreatedDate
+    private LocalDateTime createdDate = LocalDateTime.now();
+
     @ManyToOne
     @JoinColumn(name = "plot_id")
     private Plot plot;
-
-    @OneToMany(mappedBy = "character")
-    private Set<Specification> specifications = new HashSet<>();
-
-    @OneToMany(mappedBy = "character")
-    private Set<Timeline> timelines = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToMany(mappedBy = "character")
+    private Set<Specification> specifications = new HashSet<>();
+
     public Character() {
+    }
+
+    public Character(Long id, String name, String bio, String image, LocalDateTime createdDate) {
+        this.id = id;
+        this.name = name;
+        this.bio = bio;
+        this.image = image;
+        this.createdDate = createdDate;
     }
 
     public Long getId() {
@@ -70,6 +80,14 @@ public class Character {
         this.image = image;
     }
 
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
     public Plot getPlot() {
         return plot;
     }
@@ -86,11 +104,4 @@ public class Character {
         this.user = user;
     }
 
-    public Set<Specification> getSpecifications() {
-        return specifications;
-    }
-
-    public Set<Timeline> getTimelines() {
-        return timelines;
-    }
 }

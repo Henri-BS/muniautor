@@ -50,4 +50,17 @@ public class PlotServiceImpl implements PlotService {
 
         return new PlotDto(plotRepository.saveAndFlush(add));
     }
+
+    @Override
+    @Transactional
+    public PlotDto updatePlot(PlotDto dto) {
+        Plot edit = plotRepository.findById(dto.getId()).orElseThrow(NoSuchElementException::new);
+
+        edit.setId(edit.getId());
+        edit.setTitle(dto.getTitle());
+        edit.setDescription(dto.getDescription());
+        edit.setImage(dto.getImage());
+
+        return new PlotDto(plotRepository.save(edit));
+    }
 }

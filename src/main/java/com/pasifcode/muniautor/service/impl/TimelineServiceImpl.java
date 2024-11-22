@@ -35,12 +35,14 @@ public class TimelineServiceImpl implements TimelineService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public TimelineDto findById(Long id) {
         Timeline find = timelineRepository.findById(id).orElseThrow(NoSuchElementException::new);
         return new TimelineDto(find);
     }
 
     @Override
+    @Transactional
     public TimelineDto saveTimeline(TimelineDto dto) {
         Plot plot = plotRepository.findById(dto.getPlotId()).orElseThrow(NoSuchElementException::new);
         User user = userRepository.findById(dto.getUserId()).orElseThrow(NoSuchElementException::new);
@@ -54,5 +56,19 @@ public class TimelineServiceImpl implements TimelineService {
         add.setUser(user);
 
         return new TimelineDto(timelineRepository.saveAndFlush(add));
+    }
+
+    @Override
+    @Transactional
+    public TimelineDto updateTimeline(TimelineDto dto) {
+        Timeline edit = timelineRepository.findById(dto.getId()).orElseThrow(NoSuchElementException::new);
+
+        edit.setId(edit.getId());
+        edit.setTitle(dto.getTitle());
+        edit.setDescription(dto.getDescription());
+        edit.setEpoch(dto.getEpoch());
+        edit.setYearNumber(dto.getYearNumber());
+
+        return new TimelineDto(timelineRepository.save(edit));
     }
 }

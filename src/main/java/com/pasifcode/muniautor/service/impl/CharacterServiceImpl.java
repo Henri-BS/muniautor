@@ -56,4 +56,16 @@ public class CharacterServiceImpl implements CharacterService {
 
         return new CharacterDto(characterRepository.saveAndFlush(add));
     }
+
+    @Override
+    @Transactional
+    public CharacterDto updateCharacter(CharacterDto dto) {
+        Character edit = characterRepository.findById(dto.getId()).orElseThrow(NoSuchElementException::new);
+
+        edit.setName(dto.getName());
+        edit.setBio(dto.getBio());
+        edit.setImage(dto.getImage());
+
+        return new CharacterDto(characterRepository.save(edit));
+    }
 }

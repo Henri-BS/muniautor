@@ -1,10 +1,7 @@
 package com.pasifcode.muniautor.application.controller;
 
 import com.pasifcode.muniautor.domain.dto.SpecificationDto;
-import com.pasifcode.muniautor.domain.dto.TimelineDto;
 import com.pasifcode.muniautor.domain.entity.Character;
-import com.pasifcode.muniautor.domain.entity.Plot;
-import com.pasifcode.muniautor.domain.entity.Section;
 import com.pasifcode.muniautor.service.SpecificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,5 +33,11 @@ public class SpecificationController {
     public ResponseEntity<SpecificationDto> saveSpecification(@RequestBody SpecificationDto dto) {
         SpecificationDto save = specificationService.saveSpecification(dto);
         return new ResponseEntity<>(save, HttpStatus.CREATED);
+    }
+
+    @PutMapping
+    public ResponseEntity<SpecificationDto> updateSpecification(@RequestBody SpecificationDto dto) {
+        SpecificationDto edit = specificationService.updateSpecification(dto);
+        return new ResponseEntity<>(edit, HttpStatus.OK);
     }
 }
