@@ -11,6 +11,4 @@ import java.util.List;
 @Repository
 public interface TimelineRepository extends JpaRepository<Timeline, Long> {
     List<Timeline> findByPlot(Plot plot);
-
-    List<Timeline> findByCharacter(Character character);
 }

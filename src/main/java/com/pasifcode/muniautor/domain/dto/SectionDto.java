@@ -12,9 +12,12 @@ public class SectionDto implements Serializable {
 
     private Long id;
     private String title;
-    private String body;
-    private UserDto user;
-    private PlotDto plot;
+    private String description;
+    private Long plotId;
+    private String plotTitle;
+    private Long userId;
+    private String username;
+
 
     public SectionDto() {
     }
@@ -22,9 +25,11 @@ public class SectionDto implements Serializable {
     public SectionDto(Section entity) {
         id = entity.getId();
         title = entity.getTitle();
-        body = entity.getBody();
-        plot = new PlotDto(entity.getPlot());
-        user = new UserDto(entity.getUser());
+        description = entity.getDescription();
+        plotId = entity.getPlot().getId();
+        plotTitle = entity.getPlot().getTitle();
+        userId = entity.getUser().getId();
+        username = entity.getUser().getUsername();
     }
 
     public Long getId() {
@@ -35,15 +40,23 @@ public class SectionDto implements Serializable {
         return title;
     }
 
-    public String getBody() {
-        return body;
+    public String getDescription() {
+        return description;
     }
 
-    public UserDto getUser() {
-        return user;
+    public Long getPlotId() {
+        return plotId;
     }
 
-    public PlotDto getPlot() {
-        return plot;
+    public String getPlotTitle() {
+        return plotTitle;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public String getUsername() {
+        return username;
     }
 }

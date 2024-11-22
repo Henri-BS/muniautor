@@ -2,19 +2,15 @@ package com.pasifcode.muniautor.domain.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "tb_timeline")
-public class Timeline {
+public class Timeline extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "timeline_id", nullable = false)
     private Long id;
-
-    @Column(length = 80, nullable = false)
-    private String title;
-
-    @Column(columnDefinition = "TEXT")
-    private String description;
 
     private String epoch;
 
@@ -25,11 +21,20 @@ public class Timeline {
     private Plot plot;
 
     @ManyToOne
-    @JoinColumn(name = "character_id")
-    private Character character;
+    @JoinColumn(name = "user_id")
+    private User user;
 
 
     public Timeline() {
+    }
+
+    public Timeline(Long id, String title, String description, LocalDateTime createdDate, String epoch, Integer yearNumber, Plot plot, User user) {
+        super(title, description, createdDate);
+        this.id = id;
+        this.epoch = epoch;
+        this.yearNumber = yearNumber;
+        this.plot = plot;
+        this.user = user;
     }
 
     public Long getId() {
@@ -38,22 +43,6 @@ public class Timeline {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getEpoch() {
@@ -80,11 +69,11 @@ public class Timeline {
         this.plot = plot;
     }
 
-    public Character getCharacter() {
-        return character;
+    public User getUser() {
+        return user;
     }
 
-    public void setCharacter(Character character) {
-        this.character = character;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

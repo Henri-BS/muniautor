@@ -45,14 +45,14 @@ public class SectionServiceImpl implements SectionService {
     @Override
     @Transactional
     public SectionDto saveSection(SectionDto dto) {
-        User user = userRepository.findById(dto.getUser().getId()).orElseThrow(NoSuchElementException::new);
-        Plot plot = plotRepository.findById(dto.getPlot().getId()).orElseThrow(NoSuchElementException::new);
+        Plot plot = plotRepository.findById(dto.getPlotId()).orElseThrow(NoSuchElementException::new);
+        User user = userRepository.findById(dto.getUserId()).orElseThrow(NoSuchElementException::new);
 
         Section add = new Section();
         add.setTitle(dto.getTitle());
-        add.setBody(dto.getBody());
-        add.setUser(user);
+        add.setDescription(dto.getDescription());
         add.setPlot(plot);
+        add.setUser(user);
 
         return new SectionDto(sectionRepository.saveAndFlush(add));
     }

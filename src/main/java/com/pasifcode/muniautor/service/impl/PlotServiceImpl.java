@@ -40,12 +40,11 @@ public class PlotServiceImpl implements PlotService {
     @Override
     @Transactional
     public PlotDto savePlot(PlotDto dto) {
-        User user = userRepository.findById(dto.getUser().getId())
-                .orElseThrow(NoSuchElementException::new);
+        User user = userRepository.findById(dto.getUserId()).orElseThrow(NoSuchElementException::new);
 
         Plot add = new Plot();
         add.setTitle(dto.getTitle());
-        add.setSynopsis(dto.getSynopsis());
+        add.setDescription(dto.getDescription());
         add.setImage(dto.getImage());
         add.setUser(user);
 

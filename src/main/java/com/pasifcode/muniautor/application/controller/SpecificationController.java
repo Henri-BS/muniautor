@@ -20,13 +20,6 @@ public class SpecificationController {
     @Autowired
     private SpecificationService specificationService;
 
-    @GetMapping("/section/{section}")
-    public ResponseEntity<List<SpecificationDto>> findBySection(@PathVariable Section section) {
-        List<SpecificationDto> list = specificationService.findBySection(section);
-        return ResponseEntity.ok(list);
-    }
-
-
     @GetMapping("/character/{character}")
     public ResponseEntity<List<SpecificationDto>> findByCharacter(@PathVariable Character character) {
         List<SpecificationDto> list = specificationService.findByCharacter(character);

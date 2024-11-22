@@ -1,12 +1,9 @@
 package com.pasifcode.muniautor.domain.dto;
 
 import com.pasifcode.muniautor.domain.entity.Plot;
-import com.pasifcode.muniautor.domain.entity.User;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.List;
 
 public class PlotDto implements Serializable {
 
@@ -15,9 +12,10 @@ public class PlotDto implements Serializable {
 
     private Long id;
     private String title;
-    private String synopsis;
+    private String description;
     private String image;
-    private UserDto user;
+    private Long userId;
+    private String username;
 
     public PlotDto() {
     }
@@ -25,9 +23,10 @@ public class PlotDto implements Serializable {
     public PlotDto(Plot entity) {
         id = entity.getId();
         title = entity.getTitle();
-        synopsis = entity.getSynopsis();
+        description = entity.getDescription();
         image = entity.getImage();
-        user = new UserDto(entity.getUser());
+        userId = entity.getUser().getId();
+        username = entity.getUser().getUsername();
     }
 
     public Long getId() {
@@ -38,15 +37,19 @@ public class PlotDto implements Serializable {
         return title;
     }
 
-    public String getSynopsis() {
-        return synopsis;
+    public String getDescription() {
+        return description;
     }
 
     public String getImage() {
         return image;
     }
 
-    public UserDto getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
+    }
+
+    public String getUsername() {
+        return username;
     }
 }

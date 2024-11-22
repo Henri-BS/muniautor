@@ -3,8 +3,10 @@ package com.pasifcode.muniautor.service.impl;
 import com.pasifcode.muniautor.domain.dto.CharacterDto;
 import com.pasifcode.muniautor.domain.entity.Character;
 import com.pasifcode.muniautor.domain.entity.Plot;
+import com.pasifcode.muniautor.domain.entity.User;
 import com.pasifcode.muniautor.domain.repository.CharacterRepository;
 import com.pasifcode.muniautor.domain.repository.PlotRepository;
+import com.pasifcode.muniautor.domain.repository.UserRepository;
 import com.pasifcode.muniautor.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,9 @@ public class CharacterServiceImpl implements CharacterService {
 
     @Autowired
     private PlotRepository plotRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -39,14 +44,15 @@ public class CharacterServiceImpl implements CharacterService {
     @Override
     @Transactional
     public CharacterDto saveCharacter(CharacterDto dto) {
-        Plot plot = plotRepository.findById(dto.getPlot().getId())
-                .orElseThrow(NoSuchElementException::new);
+        Plot plot = plotRepository.findById(dto.getPlotId()).orElseThrow(NoSuchElementException::new);
+        User user = userRepository.findById(dto.getUserId()).orElseThrow(NoSuchElementException::new);
 
         Character add = new Character();
         add.setName(dto.getName());
         add.setBio(dto.getBio());
         add.setImage(dto.getImage());
         add.setPlot(plot);
+        add.setUser(user);
 
         return new CharacterDto(characterRepository.saveAndFlush(add));
     }

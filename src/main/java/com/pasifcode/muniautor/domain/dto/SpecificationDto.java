@@ -11,39 +11,40 @@ public class SpecificationDto implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
-    private String type;
+    private String title;
     private String description;
-    private SectionDto section;
-    private CharacterDto character;
+    private Long characterId;
+    private Long userId;
+
 
     public SpecificationDto() {
     }
 
     public SpecificationDto(Specification entity) {
         id = entity.getId();
-        type = entity.getType();
+        title = entity.getTitle();
         description = entity.getDescription();
-        section = new SectionDto(entity.getSection());
-        character = new CharacterDto(entity.getCharacter());
+        characterId = entity.getCharacter().getId();
+        userId  = entity.getUser().getId();
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getType() {
-        return type;
+    public String getTitle() {
+        return title;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public SectionDto getSection() {
-        return section;
+    public Long getCharacterId() {
+        return characterId;
     }
 
-    public CharacterDto getCharacter() {
-        return character;
+    public Long getUserId() {
+        return userId;
     }
 }

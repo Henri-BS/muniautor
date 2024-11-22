@@ -2,23 +2,18 @@ package com.pasifcode.muniautor.domain.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "tb_section")
-public class Section {
+public class Section extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "section_id", nullable = false)
     private Long id;
-
-    @Column(nullable = false)
-    private String title;
-
-    @Column(columnDefinition = "TEXT", nullable = false)
-    private String body;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -29,15 +24,14 @@ public class Section {
     private Plot plot;
 
     @OneToMany(mappedBy = "section")
-    private Set<Specification> specifications = new HashSet<>();
+    private Set<SectionPage> sectionPages = new HashSet<>();
 
     public Section() {
     }
 
-    public Section(Long id, String title, String body, User user, Plot plot) {
+    public Section(Long id, String title, String description, LocalDateTime createdDate, User user, Plot plot) {
+        super(title, description, createdDate);
         this.id = id;
-        this.title = title;
-        this.body = body;
         this.user = user;
         this.plot = plot;
     }
@@ -50,21 +44,6 @@ public class Section {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
-    }
 
     public User getUser() {
         return user;
@@ -82,7 +61,4 @@ public class Section {
         this.plot = plot;
     }
 
-    public Set<Specification> getSpecifications() {
-        return specifications;
-    }
 }

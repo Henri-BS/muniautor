@@ -10,7 +10,6 @@ import java.util.List;
 
 @Repository
 public interface SpecificationRepository extends JpaRepository<Specification, Long> {
-    List<Specification> findBySection(Section section);
 
     List<Specification> findByCharacter(Character character);
 }

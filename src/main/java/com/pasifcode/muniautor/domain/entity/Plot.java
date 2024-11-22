@@ -2,24 +2,19 @@ package com.pasifcode.muniautor.domain.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "tb_plot")
-public class Plot {
+public class Plot extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "plot_id", nullable = false)
     private Long id;
 
-    @Column(length = 100, nullable = false)
-    private String title;
 
-    @Column(length = 5000, columnDefinition = "TEXT")
-    private String synopsis;
-
-    private String image;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -37,11 +32,9 @@ public class Plot {
     public Plot() {
     }
 
-    public Plot(Long id, String title, String synopsis, String image) {
+    public Plot(Long id, String title, String description, String image, LocalDateTime createdDate) {
+        super(title, description, image, createdDate);
         this.id = id;
-        this.title = title;
-        this.synopsis = synopsis;
-        this.image = image;
     }
 
     public Long getId() {
@@ -50,30 +43,6 @@ public class Plot {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getSynopsis() {
-        return synopsis;
-    }
-
-    public void setSynopsis(String synopsis) {
-        this.synopsis = synopsis;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public User getUser() {

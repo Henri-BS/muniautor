@@ -1,12 +1,12 @@
 package com.pasifcode.muniautor.service.impl;
 
 import com.pasifcode.muniautor.domain.dto.TimelineDto;
-import com.pasifcode.muniautor.domain.entity.Character;
 import com.pasifcode.muniautor.domain.entity.Plot;
 import com.pasifcode.muniautor.domain.entity.Timeline;
-import com.pasifcode.muniautor.domain.repository.CharacterRepository;
+import com.pasifcode.muniautor.domain.entity.User;
 import com.pasifcode.muniautor.domain.repository.PlotRepository;
 import com.pasifcode.muniautor.domain.repository.TimelineRepository;
+import com.pasifcode.muniautor.domain.repository.UserRepository;
 import com.pasifcode.muniautor.service.TimelineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,21 +25,13 @@ public class TimelineServiceImpl implements TimelineService {
     private PlotRepository plotRepository;
 
     @Autowired
-    private CharacterRepository characterRepository;
+    private UserRepository userRepository;
 
     @Override
     @Transactional(readOnly = true)
     public List<TimelineDto> findByPlot(Plot plot) {
         List<Timeline> list = timelineRepository.findByPlot(plot);
         return list.stream().map(TimelineDto::new).toList();
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<TimelineDto> findByCharacter(Character character) {
-        List<Timeline> list = timelineRepository.findByCharacter(character);
-        return list.stream().map(TimelineDto::new).toList();
-
     }
 
     @Override
@@ -50,8 +42,8 @@ public class TimelineServiceImpl implements TimelineService {
 
     @Override
     public TimelineDto saveTimeline(TimelineDto dto) {
-        Plot plot = plotRepository.findById(dto.getPlot().getId()).orElseThrow(NoSuchElementException::new);
-        Character character = characterRepository.findById(dto.getCharacter().getId()).orElseThrow(NoSuchElementException::new);
+        Plot plot = plotRepository.findById(dto.getPlotId()).orElseThrow(NoSuchElementException::new);
+        User user = userRepository.findById(dto.getUserId()).orElseThrow(NoSuchElementException::new);
 
         Timeline add = new Timeline();
         add.setTitle(dto.getTitle());
@@ -59,8 +51,8 @@ public class TimelineServiceImpl implements TimelineService {
         add.setEpoch(dto.getEpoch());
         add.setYearNumber(dto.getYearNumber());
         add.setPlot(plot);
-        add.setCharacter(character);
-        return new TimelineDto(timelineRepository.saveAndFlush(add));
+        add.setUser(user);
 
+        return new TimelineDto(timelineRepository.saveAndFlush(add));
     }
 }

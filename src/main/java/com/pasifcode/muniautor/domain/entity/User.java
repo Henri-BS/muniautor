@@ -23,16 +23,20 @@ public class User {
     @JsonIgnore
     private String password;
 
-    private String image;
-
-    @Column(columnDefinition = "TEXT")
-    private String bio;
-
     @OneToMany(mappedBy = "user")
     private Set<Plot> plots = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
     private Set<Section> sections = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private Set<Character> characters = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private Set<Specification> specifications = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private Set<SectionPage> sectionPages = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -64,22 +68,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getBio() {
-        return bio;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
     }
 
     public Set<Plot> getPlots() {

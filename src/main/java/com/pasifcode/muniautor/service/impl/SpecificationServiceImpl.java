@@ -6,6 +6,7 @@ import com.pasifcode.muniautor.domain.entity.Character;
 import com.pasifcode.muniautor.domain.repository.CharacterRepository;
 import com.pasifcode.muniautor.domain.repository.SectionRepository;
 import com.pasifcode.muniautor.domain.repository.SpecificationRepository;
+import com.pasifcode.muniautor.domain.repository.UserRepository;
 import com.pasifcode.muniautor.service.SpecificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,17 +22,10 @@ public class SpecificationServiceImpl implements SpecificationService {
     private SpecificationRepository specificationRepository;
 
     @Autowired
-    private SectionRepository sectionRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private CharacterRepository characterRepository;
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<SpecificationDto> findBySection(Section section) {
-        List<Specification> list = specificationRepository.findBySection(section);
-        return list.stream().map(SpecificationDto::new).toList();
-    }
 
     @Override
     @Transactional(readOnly = true)
@@ -51,14 +45,14 @@ public class SpecificationServiceImpl implements SpecificationService {
     @Override
     @Transactional
     public SpecificationDto saveSpecification(SpecificationDto dto) {
-        Section section = sectionRepository.findById(dto.getSection().getId()).orElseThrow(NoSuchElementException::new);
-        Character character = characterRepository.findById(dto.getCharacter().getId()).orElseThrow(NoSuchElementException::new);
+        Character character = characterRepository.findById(dto.getCharacterId()).orElseThrow(NoSuchElementException::new);
+        User user = userRepository.findById(dto.getUserId()).orElseThrow(NoSuchElementException::new);
 
         Specification add = new Specification();
-        add.setType(dto.getType());
+        add.setTitle(dto.getTitle());
         add.setDescription(dto.getDescription());
-        add.setSection(section);
         add.setCharacter(character);
+        add.setUser(user);
 
         return new SpecificationDto(specificationRepository.saveAndFlush(add));
     }

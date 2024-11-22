@@ -15,8 +15,9 @@ public class TimelineDto implements Serializable {
     private String description;
     private String epoch;
     private Integer yearNumber;
-    private PlotDto plot;
-    private CharacterDto character;
+    private Long plotId;
+    private Long userId;
+    private String username;
 
     public TimelineDto() {
     }
@@ -27,8 +28,9 @@ public class TimelineDto implements Serializable {
         description = entity.getDescription();
         epoch = entity.getEpoch();
         yearNumber = entity.getYearNumber();
-        plot = new PlotDto(entity.getPlot());
-        character = new CharacterDto(entity.getCharacter());
+        plotId = entity.getPlot().getId();
+        userId = entity.getUser().getId();
+        username = entity.getUser().getUsername();
     }
 
     public Long getId() {
@@ -51,11 +53,15 @@ public class TimelineDto implements Serializable {
         return yearNumber;
     }
 
-    public PlotDto getPlot() {
-        return plot;
+    public Long getPlotId() {
+        return plotId;
     }
 
-    public CharacterDto getCharacter() {
-        return character;
+    public Long getUserId() {
+        return userId;
+    }
+
+    public String getUsername() {
+        return username;
     }
 }

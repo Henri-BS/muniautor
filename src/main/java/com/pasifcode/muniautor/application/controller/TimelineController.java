@@ -25,12 +25,6 @@ public class TimelineController {
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping("/character/{character}")
-    public ResponseEntity<List<TimelineDto>> findByCharacter(@PathVariable Character character) {
-        List<TimelineDto> list = timelineService.findByCharacter(character);
-        return ResponseEntity.ok(list);
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<TimelineDto> findTimelineById(@PathVariable Long id) {
         TimelineDto find = timelineService.findById(id);

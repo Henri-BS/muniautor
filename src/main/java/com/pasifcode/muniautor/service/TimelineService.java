@@ -9,8 +9,6 @@ import java.util.List;
 public interface TimelineService {
     List<TimelineDto> findByPlot(Plot plot);
 
-    List<TimelineDto> findByCharacter(Character character);
-
     TimelineDto findById(Long id);
 
     TimelineDto saveTimeline(TimelineDto dto);

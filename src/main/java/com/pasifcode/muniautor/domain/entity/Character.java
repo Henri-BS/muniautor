@@ -31,6 +31,10 @@ public class Character {
     @OneToMany(mappedBy = "character")
     private Set<Timeline> timelines = new HashSet<>();
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Character() {
     }
 
@@ -72,6 +76,14 @@ public class Character {
 
     public void setPlot(Plot plot) {
         this.plot = plot;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Set<Specification> getSpecifications() {
