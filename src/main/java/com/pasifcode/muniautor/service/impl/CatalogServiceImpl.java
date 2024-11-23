@@ -1,11 +1,9 @@
 package com.pasifcode.muniautor.service.impl;
 
+import com.pasifcode.muniautor.application.exceptions.ResourceNotFoundException;
 import com.pasifcode.muniautor.domain.dto.CatalogDto;
-import com.pasifcode.muniautor.domain.dto.CatalogDto;
-import com.pasifcode.muniautor.domain.entity.Character;
 import com.pasifcode.muniautor.domain.entity.Catalog;
 import com.pasifcode.muniautor.domain.entity.User;
-import com.pasifcode.muniautor.domain.repository.CharacterRepository;
 import com.pasifcode.muniautor.domain.repository.CatalogRepository;
 import com.pasifcode.muniautor.domain.repository.UserRepository;
 import com.pasifcode.muniautor.service.CatalogService;
@@ -27,14 +25,14 @@ public class CatalogServiceImpl implements CatalogService {
     @Override
     @Transactional(readOnly = true)
     public CatalogDto findById(Long id) {
-        Catalog find = catalogRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        Catalog find = catalogRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
         return new CatalogDto(find);
     }
 
     @Override
     @Transactional
     public CatalogDto saveCatalog(CatalogDto dto) {
-        User user = userRepository.findById(dto.getUserId()).orElseThrow(NoSuchElementException::new);
+        User user = userRepository.findById(dto.getUserId()).orElseThrow(() -> new ResourceNotFoundException(dto.getUserId()));
 
         Catalog add = new Catalog();
         add.setTitle(dto.getTitle());
@@ -47,7 +45,7 @@ public class CatalogServiceImpl implements CatalogService {
     @Override
     @Transactional
     public CatalogDto updateCatalog(CatalogDto dto) {
-        Catalog edit = catalogRepository.findById(dto.getId()).orElseThrow(NoSuchElementException::new);
+        Catalog edit = catalogRepository.findById(dto.getId()).orElseThrow(() -> new ResourceNotFoundException(dto.getId()));
 
         edit.setId(edit.getId());
         edit.setTitle(dto.getTitle());

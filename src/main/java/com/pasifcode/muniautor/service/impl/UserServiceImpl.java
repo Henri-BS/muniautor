@@ -1,5 +1,6 @@
 package com.pasifcode.muniautor.service.impl;
 
+import com.pasifcode.muniautor.application.exceptions.ResourceNotFoundException;
 import com.pasifcode.muniautor.domain.dto.UserDto;
 import com.pasifcode.muniautor.domain.entity.User;
 import com.pasifcode.muniautor.domain.repository.UserRepository;
@@ -9,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.NoSuchElementException;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -28,7 +27,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public UserDto findById(Long id) {
-        User find = userRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        User find = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
         return new UserDto(find);
     }
 

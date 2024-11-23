@@ -1,5 +1,6 @@
 package com.pasifcode.muniautor.service.impl;
 
+import com.pasifcode.muniautor.application.exceptions.ResourceNotFoundException;
 import com.pasifcode.muniautor.domain.dto.SectionDto;
 import com.pasifcode.muniautor.domain.entity.Plot;
 import com.pasifcode.muniautor.domain.entity.Section;
@@ -38,15 +39,15 @@ public class SectionServiceImpl implements SectionService {
     @Override
     @Transactional(readOnly = true)
     public SectionDto findById(Long id) {
-        Section find = sectionRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        Section find = sectionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
         return new SectionDto(find);
     }
 
     @Override
     @Transactional
     public SectionDto saveSection(SectionDto dto) {
-        Plot plot = plotRepository.findById(dto.getPlotId()).orElseThrow(NoSuchElementException::new);
-        User user = userRepository.findById(dto.getUserId()).orElseThrow(NoSuchElementException::new);
+        Plot plot = plotRepository.findById(dto.getPlotId()).orElseThrow(() -> new ResourceNotFoundException(dto.getPlotId()));
+        User user = userRepository.findById(dto.getUserId()).orElseThrow(() -> new ResourceNotFoundException(dto.getUserId()));
 
         Section add = new Section();
         add.setTitle(dto.getTitle());
@@ -60,7 +61,7 @@ public class SectionServiceImpl implements SectionService {
     @Override
     @Transactional
     public SectionDto updateSection(SectionDto dto) {
-        Section edit = sectionRepository.findById(dto.getId()).orElseThrow(NoSuchElementException::new);
+        Section edit = sectionRepository.findById(dto.getId()).orElseThrow(() -> new ResourceNotFoundException(dto.getId()));
 
         edit.setId(edit.getId());
         edit.setTitle(dto.getTitle());

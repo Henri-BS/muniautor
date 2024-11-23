@@ -4,6 +4,9 @@ import com.pasifcode.muniautor.domain.entity.Plot;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface PlotRepository extends JpaRepository<Plot, Long> {
+    Plot findByTitle(String title);
 }

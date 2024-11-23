@@ -1,5 +1,6 @@
 package com.pasifcode.muniautor.domain.entity;
 
+import com.pasifcode.muniautor.domain.key.PlotCatalogPk;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -18,8 +19,8 @@ public class Catalog extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany(mappedBy = "catalogs")
-    private Set<Plot> plots = new HashSet<>();
+    @OneToMany(mappedBy = "id.catalog")
+    private Set<PlotCatalog> plotCatalog = new HashSet<>();
 
     public Catalog() {
     }

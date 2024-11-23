@@ -1,5 +1,6 @@
 package com.pasifcode.muniautor.service.impl;
 
+import com.pasifcode.muniautor.application.exceptions.ResourceNotFoundException;
 import com.pasifcode.muniautor.domain.dto.SpecificationDto;
 import com.pasifcode.muniautor.domain.entity.*;
 import com.pasifcode.muniautor.domain.entity.Character;
@@ -37,15 +38,15 @@ public class SpecificationServiceImpl implements SpecificationService {
     @Override
     @Transactional(readOnly = true)
     public SpecificationDto findById(Long id) {
-        Specification find = specificationRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        Specification find = specificationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
         return new SpecificationDto(find);
     }
 
     @Override
     @Transactional
     public SpecificationDto saveSpecification(SpecificationDto dto) {
-        Character character = characterRepository.findById(dto.getCharacterId()).orElseThrow(NoSuchElementException::new);
-        User user = userRepository.findById(dto.getUserId()).orElseThrow(NoSuchElementException::new);
+        Character character = characterRepository.findById(dto.getCharacterId()).orElseThrow(() -> new ResourceNotFoundException(dto.getCharacterId()));
+        User user = userRepository.findById(dto.getUserId()).orElseThrow(() -> new ResourceNotFoundException(dto.getUserId()));
 
         Specification add = new Specification();
         add.setTitle(dto.getTitle());
@@ -59,7 +60,7 @@ public class SpecificationServiceImpl implements SpecificationService {
     @Override
     @Transactional
     public SpecificationDto updateSpecification(SpecificationDto dto) {
-        Specification edit = specificationRepository.findById(dto.getId()).orElseThrow(NoSuchElementException::new);
+        Specification edit = specificationRepository.findById(dto.getId()).orElseThrow(() -> new ResourceNotFoundException(dto.getId()));
 
         edit.setId(edit.getId());
         edit.setTitle(dto.getTitle());

@@ -1,5 +1,6 @@
 package com.pasifcode.muniautor.service.impl;
 
+import com.pasifcode.muniautor.application.exceptions.ResourceNotFoundException;
 import com.pasifcode.muniautor.domain.dto.CharacterDto;
 import com.pasifcode.muniautor.domain.entity.Character;
 import com.pasifcode.muniautor.domain.entity.Plot;
@@ -37,15 +38,15 @@ public class CharacterServiceImpl implements CharacterService {
     @Override
     @Transactional(readOnly = true)
     public CharacterDto findById(Long id) {
-        Character find = characterRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        Character find = characterRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
         return new CharacterDto(find);
     }
 
     @Override
     @Transactional
     public CharacterDto saveCharacter(CharacterDto dto) {
-        Plot plot = plotRepository.findById(dto.getPlotId()).orElseThrow(NoSuchElementException::new);
-        User user = userRepository.findById(dto.getUserId()).orElseThrow(NoSuchElementException::new);
+        Plot plot = plotRepository.findById(dto.getPlotId()).orElseThrow(() -> new ResourceNotFoundException(dto.getPlotId()));
+        User user = userRepository.findById(dto.getUserId()).orElseThrow(() -> new ResourceNotFoundException(dto.getUserId()));
 
         Character add = new Character();
         add.setName(dto.getName());
@@ -60,7 +61,7 @@ public class CharacterServiceImpl implements CharacterService {
     @Override
     @Transactional
     public CharacterDto updateCharacter(CharacterDto dto) {
-        Character edit = characterRepository.findById(dto.getId()).orElseThrow(NoSuchElementException::new);
+        Character edit = characterRepository.findById(dto.getId()).orElseThrow(() -> new ResourceNotFoundException(dto.getId()));
 
         edit.setId(edit.getId());
         edit.setName(dto.getName());

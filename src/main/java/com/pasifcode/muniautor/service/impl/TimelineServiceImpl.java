@@ -1,5 +1,6 @@
 package com.pasifcode.muniautor.service.impl;
 
+import com.pasifcode.muniautor.application.exceptions.ResourceNotFoundException;
 import com.pasifcode.muniautor.domain.dto.TimelineDto;
 import com.pasifcode.muniautor.domain.entity.Plot;
 import com.pasifcode.muniautor.domain.entity.Timeline;
@@ -37,15 +38,15 @@ public class TimelineServiceImpl implements TimelineService {
     @Override
     @Transactional(readOnly = true)
     public TimelineDto findById(Long id) {
-        Timeline find = timelineRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        Timeline find = timelineRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
         return new TimelineDto(find);
     }
 
     @Override
     @Transactional
     public TimelineDto saveTimeline(TimelineDto dto) {
-        Plot plot = plotRepository.findById(dto.getPlotId()).orElseThrow(NoSuchElementException::new);
-        User user = userRepository.findById(dto.getUserId()).orElseThrow(NoSuchElementException::new);
+        Plot plot = plotRepository.findById(dto.getPlotId()).orElseThrow(() -> new ResourceNotFoundException(dto.getPlotId()));
+        User user = userRepository.findById(dto.getUserId()).orElseThrow(() -> new ResourceNotFoundException(dto.getUserId()));
 
         Timeline add = new Timeline();
         add.setTitle(dto.getTitle());
@@ -61,7 +62,7 @@ public class TimelineServiceImpl implements TimelineService {
     @Override
     @Transactional
     public TimelineDto updateTimeline(TimelineDto dto) {
-        Timeline edit = timelineRepository.findById(dto.getId()).orElseThrow(NoSuchElementException::new);
+        Timeline edit = timelineRepository.findById(dto.getId()).orElseThrow(() -> new ResourceNotFoundException(dto.getId()));
 
         edit.setId(edit.getId());
         edit.setTitle(dto.getTitle());

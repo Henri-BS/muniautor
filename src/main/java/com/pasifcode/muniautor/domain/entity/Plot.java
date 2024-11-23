@@ -1,5 +1,6 @@
 package com.pasifcode.muniautor.domain.entity;
 
+import com.pasifcode.muniautor.domain.key.PlotCatalogPk;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -28,9 +29,8 @@ public class Plot extends BaseEntity{
     @OneToMany(mappedBy = "plot")
     private Set<Character> characters = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(name = "tb_plot_catalog", joinColumns = @JoinColumn(name = "plot_id"), inverseJoinColumns = @JoinColumn(name = "catalog_id"))
-    private Set<Catalog> catalogs = new HashSet<>();
+    @OneToMany(mappedBy = "id.plot")
+    private Set<PlotCatalog> plotCatalog = new HashSet<>();
 
     public Plot() {
     }

@@ -1,5 +1,6 @@
 package com.pasifcode.muniautor.service.impl;
 
+import com.pasifcode.muniautor.application.exceptions.ResourceNotFoundException;
 import com.pasifcode.muniautor.domain.dto.SectionPageDto;
 import com.pasifcode.muniautor.domain.entity.Section;
 import com.pasifcode.muniautor.domain.entity.SectionPage;
@@ -38,15 +39,15 @@ public class SectionPageServiceImpl implements SectionPageService {
     @Override
     @Transactional(readOnly = true)
     public SectionPageDto findById(Long id) {
-        SectionPage find = sectionPageRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        SectionPage find = sectionPageRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
         return new SectionPageDto(find);
     }
 
     @Override
     @Transactional
     public SectionPageDto saveSectionPage(SectionPageDto dto) {
-        Section section = sectionRepository.findById(dto.getSectionId()).orElseThrow(NoSuchElementException::new);
-        User user = userRepository.findById(dto.getUserId()).orElseThrow(NoSuchElementException::new);
+        Section section = sectionRepository.findById(dto.getSectionId()).orElseThrow(() -> new ResourceNotFoundException(dto.getSectionId()));
+        User user = userRepository.findById(dto.getUserId()).orElseThrow(() -> new ResourceNotFoundException(dto.getUserId()));
 
         SectionPage add = new SectionPage();
         add.setBody(dto.getBody());
@@ -60,7 +61,7 @@ public class SectionPageServiceImpl implements SectionPageService {
     @Override
     @Transactional
     public SectionPageDto updateSectionPage(SectionPageDto dto) {
-        SectionPage edit = sectionPageRepository.findById(dto.getId()).orElseThrow(NoSuchElementException::new);
+        SectionPage edit = sectionPageRepository.findById(dto.getId()).orElseThrow(() -> new ResourceNotFoundException(dto.getId()));
 
         edit.setId(edit.getId());
         edit.setBody(dto.getBody());

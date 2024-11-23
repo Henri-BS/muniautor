@@ -1,8 +1,10 @@
 package com.pasifcode.muniautor.service.impl;
 
+import com.pasifcode.muniautor.application.exceptions.ResourceNotFoundException;
 import com.pasifcode.muniautor.domain.dto.PlotDto;
 import com.pasifcode.muniautor.domain.entity.Plot;
 import com.pasifcode.muniautor.domain.entity.User;
+import com.pasifcode.muniautor.domain.repository.CatalogRepository;
 import com.pasifcode.muniautor.domain.repository.PlotRepository;
 import com.pasifcode.muniautor.domain.repository.UserRepository;
 import com.pasifcode.muniautor.service.PlotService;
@@ -22,6 +24,8 @@ public class PlotServiceImpl implements PlotService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private CatalogRepository catalogRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -33,14 +37,14 @@ public class PlotServiceImpl implements PlotService {
     @Override
     @Transactional(readOnly = true)
     public PlotDto findById(Long id) {
-        Plot find = plotRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        Plot find = plotRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
         return new PlotDto(find);
     }
 
     @Override
     @Transactional
     public PlotDto savePlot(PlotDto dto) {
-        User user = userRepository.findById(dto.getUserId()).orElseThrow(NoSuchElementException::new);
+        User user = userRepository.findById(dto.getUserId()).orElseThrow(() -> new ResourceNotFoundException(dto.getUserId()));
 
         Plot add = new Plot();
         add.setTitle(dto.getTitle());
@@ -54,7 +58,7 @@ public class PlotServiceImpl implements PlotService {
     @Override
     @Transactional
     public PlotDto updatePlot(PlotDto dto) {
-        Plot edit = plotRepository.findById(dto.getId()).orElseThrow(NoSuchElementException::new);
+        Plot edit = plotRepository.findById(dto.getId()).orElseThrow(() -> new ResourceNotFoundException(dto.getId()));
 
         edit.setId(edit.getId());
         edit.setTitle(dto.getTitle());
